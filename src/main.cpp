@@ -1,18 +1,13 @@
-#include <Arduino.h>
+#include <Wire.h>
+#include <bno086.h>
+#include "SparkFun_BNO08x_Arduino_Library.h"
 
-// put function declarations here:
-int myFunction(int, int);
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  initBNO086(); // Assuming this function initializes the BNO086 sensor as per your previous code
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
-
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+  readBNO086(); // Assuming this function reads data from the BNO086 sensor as per your previous code
+  delay(100); // Delay between readings. Adjust as needed.
 }
