@@ -37,16 +37,16 @@
 
 BNO08x myIMU;
 float magZ, magY, magX;
-float gyroZ, gyroY, gyroX;
+float quatI, quatJ, quatK, quatReal;  // Add quaternion variables
 float accelZ, accelY, accelX;
 
 void setReports(void) {
   Serial.println("Setting desired reports");
 
-  if (myIMU.enableGyro() == true) {
-    Serial.println(F("Gyro enabled"));
+  if (myIMU.enableRotationVector(1.25) == true) {  // Enable rotation vector report at 50Hz
+    Serial.println(F("Rotation vector enabled"));
   } else {
-    Serial.println("Could not enable gyro");
+    Serial.println("Could not enable rotation vector");
   }
 
   if (myIMU.enableAccelerometer() == true) {
@@ -93,44 +93,45 @@ void readBNO086() {
     setReports();
   }
 
-  if (myIMU.getSensorEvent() == true) {
-    if (myIMU.getSensorEventID() == SENSOR_REPORTID_GYROSCOPE_CALIBRATED) {
-      gyroX = myIMU.getGyroX();
-      gyroY = myIMU.getGyroY();
-      gyroZ = myIMU.getGyroZ();
+  // Wait for rotation vector event
+  while (myIMU.getSensorEvent() == false || myIMU.getSensorEventID() != SENSOR_REPORTID_ROTATION_VECTOR);
+  quatI = myIMU.getQuatI();
+  quatJ = myIMU.getQuatJ();
+  quatK = myIMU.getQuatK();
+  quatReal = myIMU.getQuatReal();
 
-      Serial.print("Gyro: ");
-      Serial.print(gyroX, 2);
-      Serial.print(F(", "));
-      Serial.print(gyroY, 2);
-      Serial.print(F(", "));
-      Serial.println(gyroZ, 2);
-    }
+  Serial.print("Quat: ");
+  Serial.print(quatI, 2);
+  Serial.print(F(", "));
+  Serial.print(quatJ, 2);
+  Serial.print(F(", "));
+  Serial.print(quatK, 2);
+  Serial.print(F(", "));
+  Serial.println(quatReal, 2);
 
-    if (myIMU.getSensorEventID() == SENSOR_REPORTID_ACCELEROMETER) {
-      accelX = myIMU.getAccelX();
-      accelY = myIMU.getAccelY();
-      accelZ = myIMU.getAccelZ();
+  // Wait for accelerometer event
+  while (myIMU.getSensorEvent() == false || myIMU.getSensorEventID() != SENSOR_REPORTID_ACCELEROMETER);
+  accelX = myIMU.getAccelX();
+  accelY = myIMU.getAccelY();
+  accelZ = myIMU.getAccelZ();
 
-      Serial.print("Accel: ");
-      Serial.print(accelX, 2);
-      Serial.print(F(", "));
-      Serial.print(accelY, 2);
-      Serial.print(F(", "));
-      Serial.println(accelZ, 2);
-    }
+  Serial.print("Accel: ");
+  Serial.print(accelX, 2);
+  Serial.print(F(", "));
+  Serial.print(accelY, 2);
+  Serial.print(F(", "));
+  Serial.println(accelZ, 2);
 
-    if (myIMU.getSensorEventID() == SENSOR_REPORTID_MAGNETIC_FIELD) {
-      magX = myIMU.getMagX();
-      magY = myIMU.getMagY();
-      magZ = myIMU.getMagZ();
+  // Wait for magnetometer event
+  while (myIMU.getSensorEvent() == false || myIMU.getSensorEventID() != SENSOR_REPORTID_MAGNETIC_FIELD);
+  magX = myIMU.getMagX();
+  magY = myIMU.getMagY();
+  magZ = myIMU.getMagZ();
 
-      Serial.print("Mag: ");
-      Serial.print(magX, 2);
-      Serial.print(F(", "));
-      Serial.print(magY, 2);
-      Serial.print(F(", "));
-      Serial.println(magZ, 2);
-    }
-  }
+  Serial.print("Mag: ");
+  Serial.print(magX, 2);
+  Serial.print(F(", "));
+  Serial.print(magY, 2);
+  Serial.print(F(", "));
+  Serial.println(magZ, 2);
 }

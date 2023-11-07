@@ -20,16 +20,16 @@ void loop() {
   Serial.print(accelZ);
   Serial.println(' ');
 
-  Serial.print("gyroX: ");
-  Serial.print(gyroX);
+  Serial.print("QuatI: ");
+  Serial.print(quatI);
   Serial.print(' ');
 
-  Serial.print("gyroY: ");
-  Serial.print(gyroY);
+  Serial.print("Quatj: ");
+  Serial.print(quatJ);
   Serial.print(' ');
 
-  Serial.print("gyroZ: ");
-  Serial.print(gyroZ);
+  Serial.print("Quatk: ");
+  Serial.print(quatK);
   Serial.println(" ");
 
   Serial.print("magX: ");
@@ -44,5 +44,5 @@ void loop() {
   Serial.print(magZ);
   Serial.println(' ');
 
-  delay(250);
+  delay(25);
 }

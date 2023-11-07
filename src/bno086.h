@@ -4,7 +4,7 @@
  
 extern BNO08x myIMU;
 extern float magZ, magY, magX;
-extern float gyroZ, gyroY, gyroX;
+extern float quatI, quatJ, quatK, quatReal;  // Add quaternion variables
 extern float accelZ, accelY, accelX;
 
 void initBNO086();

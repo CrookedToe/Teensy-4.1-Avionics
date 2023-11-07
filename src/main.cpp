@@ -9,5 +9,5 @@ void setup() {
 
 void loop() {
   readBNO086(); // Assuming this function reads data from the BNO086 sensor as per your previous code
-  delay(100); // Delay between readings. Adjust as needed.
+  delay(10); // Delay between readings. Adjust as needed.
 }
