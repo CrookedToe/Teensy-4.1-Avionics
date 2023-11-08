@@ -32,17 +32,5 @@ void loop() {
   Serial.print(quatK);
   Serial.println(" ");
 
-  Serial.print("magX: ");
-  Serial.print(magX);
-  Serial.print(' ');
-
-  Serial.print("magY: ");
-  Serial.print(magY);
-  Serial.print(' ');
-
-  Serial.print("magZ: ");
-  Serial.print(magZ);
-  Serial.println(' ');
-
-  delay(25);
+  delay(50);
 }

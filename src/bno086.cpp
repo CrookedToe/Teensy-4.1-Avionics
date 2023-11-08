@@ -36,30 +36,24 @@
 #include "SparkFun_BNO08x_Arduino_Library.h" // CTRL+Click here to get the library: http://librarymanager/All#SparkFun_BNO08x
 
 BNO08x myIMU;
-float magZ, magY, magX;
 float quatI, quatJ, quatK, quatReal;  // Add quaternion variables
 float accelZ, accelY, accelX;
 
 void setReports(void) {
   Serial.println("Setting desired reports");
 
-  if (myIMU.enableRotationVector(1.25) == true) {  // Enable rotation vector report at 50Hz
+  if (myIMU.enableRotationVector(250) == true) {  // Enable rotation vector report at 50Hz
     Serial.println(F("Rotation vector enabled"));
   } else {
     Serial.println("Could not enable rotation vector");
   }
 
-  if (myIMU.enableAccelerometer() == true) {
+  if (myIMU.enableAccelerometer(250) == true) {
     Serial.println(F("Accelerometer enabled"));
   } else {
     Serial.println("Could not enable Accelerometer");
   }
 
-  if (myIMU.enableMagnetometer() == true) {
-    Serial.println(F("Magnetometer enabled"));
-  } else {
-    Serial.println("Could not enable Magnetometer");
-  }
 }
 
 void initBNO086() {
@@ -94,7 +88,13 @@ void readBNO086() {
   }
 
   // Wait for rotation vector event
-  while (myIMU.getSensorEvent() == false || myIMU.getSensorEventID() != SENSOR_REPORTID_ROTATION_VECTOR);
+  unsigned long startTime = millis();
+  while (myIMU.getSensorEvent() == false || myIMU.getSensorEventID() != SENSOR_REPORTID_ROTATION_VECTOR) {
+    if (millis() - startTime > 1000) {
+      Serial.println("Timeout waiting for rotation vector event");
+      return;
+    }
+  }
   quatI = myIMU.getQuatI();
   quatJ = myIMU.getQuatJ();
   quatK = myIMU.getQuatK();
@@ -110,7 +110,13 @@ void readBNO086() {
   Serial.println(quatReal, 2);
 
   // Wait for accelerometer event
-  while (myIMU.getSensorEvent() == false || myIMU.getSensorEventID() != SENSOR_REPORTID_ACCELEROMETER);
+  startTime = millis();
+  while (myIMU.getSensorEvent() == false || myIMU.getSensorEventID() != SENSOR_REPORTID_ACCELEROMETER) {
+    if (millis() - startTime > 1000) {
+      Serial.println("Timeout waiting for accelerometer event");
+      return;
+    }
+  }
   accelX = myIMU.getAccelX();
   accelY = myIMU.getAccelY();
   accelZ = myIMU.getAccelZ();
@@ -122,16 +128,5 @@ void readBNO086() {
   Serial.print(F(", "));
   Serial.println(accelZ, 2);
 
-  // Wait for magnetometer event
-  while (myIMU.getSensorEvent() == false || myIMU.getSensorEventID() != SENSOR_REPORTID_MAGNETIC_FIELD);
-  magX = myIMU.getMagX();
-  magY = myIMU.getMagY();
-  magZ = myIMU.getMagZ();
 
-  Serial.print("Mag: ");
-  Serial.print(magX, 2);
-  Serial.print(F(", "));
-  Serial.print(magY, 2);
-  Serial.print(F(", "));
-  Serial.println(magZ, 2);
 }

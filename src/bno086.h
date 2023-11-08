@@ -3,7 +3,6 @@
 #include <SparkFun_BNO08x_Arduino_Library.h>
  
 extern BNO08x myIMU;
-extern float magZ, magY, magX;
 extern float quatI, quatJ, quatK, quatReal;  // Add quaternion variables
 extern float accelZ, accelY, accelX;
 
