@@ -4,9 +4,15 @@
  
 extern BNO08x myIMU;
 extern float quatI, quatJ, quatK, quatReal;  // Add quaternion variables
-extern float accelZ, accelY, accelX;
+extern float linaccelZ, linaccelY, linaccelX;
+extern float MagX, MagY, MagZ;
 
 void initBNO086();
+bool readRotationVector();
+bool readlinearAccelerometer();
+bool readMagnetometer();
+bool readGyroIntegratedRotationVector();
+
 void readBNO086();
 
 #endif // BNO086_H

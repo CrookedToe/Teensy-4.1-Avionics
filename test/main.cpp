@@ -1,36 +1,15 @@
-#include <bno086.h>
 #include <Wire.h>
+#include <bno086.h>
+#include "SparkFun_BNO08x_Arduino_Library.h"
+
 
 void setup() {
-  Serial.begin(115200);
-  initBNO086();
+  initBNO086(); // Assuming this function initializes the BNO086 sensor as per your previous code
 }
 
 void loop() {
-  readBNO086();
-  Serial.print("AccelX: ");
-  Serial.print(accelX);
-  Serial.print(' ');
-
-  Serial.print("AccelY: ");
-  Serial.print(accelY);
-  Serial.print(' ');
-
-  Serial.print("AccelZ: ");
-  Serial.print(accelZ);
-  Serial.println(' ');
-
-  Serial.print("QuatI: ");
-  Serial.print(quatI);
-  Serial.print(' ');
-
-  Serial.print("Quatj: ");
-  Serial.print(quatJ);
-  Serial.print(' ');
-
-  Serial.print("Quatk: ");
-  Serial.print(quatK);
-  Serial.println(" ");
-
-  delay(50);
+  readRotationVector(); // Assuming this function reads data from the BNO086 sensor as per your previous code
+  readAccelerometer(); // Assuming this function reads data from the BNO086 sensor as per your previous code
+  readBNO086(); // Assuming this function reads data from the BNO086 sensor as per your previous code
+  delay(50); // Delay between readings. Adjust as needed.
 }
