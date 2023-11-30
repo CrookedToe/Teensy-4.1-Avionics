@@ -42,7 +42,7 @@ void initBNO086() {
   setReports();
 
   Serial.println("Reading events");
-  delay(100);
+  delay(250);
 
 }
 

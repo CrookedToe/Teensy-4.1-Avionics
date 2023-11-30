@@ -10,12 +10,12 @@ void setup() {
   initBNO086();
   initBMP390();
   initUltimateGPS();
-  delay(10000);
+  delay(2000);
 }
 
 void loop() {
-  readRotationVector();
   readGravity();  
+  readRotationVector();
   readBMP390();
   readUltimateGPS();
 
@@ -77,5 +77,5 @@ void loop() {
   Serial.println();
 
   writeDataToSD(roll, pitch, yaw, temperature, pressure, altitudeAltimeter, gravityX, gravityY, gravityZ, latitude, longitude, altitudeGPS, speed, heading);
-  delay(50);
+  delay(250);
 }
