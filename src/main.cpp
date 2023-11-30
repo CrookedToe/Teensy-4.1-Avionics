@@ -2,13 +2,14 @@
 #include <Wire.h>
 #include <bmp390.h>
 #include <UltimateGPS.h>
-
+#include <SDWriter.h>
 void setup() {
   Serial.begin(115200);
+  setupSDWriter();
   initBNO086();
   initBMP390();
   initUltimateGPS();
-  delay(1000);
+  delay(10000);
 }
 
 void loop() {
@@ -60,5 +61,6 @@ void loop() {
   Serial.print(heading);
   Serial.println();
 
+  writeDataToSD(roll, pitch, yaw, temperature, pressure, altitudeAltimeter, latitude, longitude, altitudeGPS, speed, heading);
   delay(50);
 }
