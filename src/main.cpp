@@ -1,62 +1,64 @@
 #include <bno086.h>
 #include <Wire.h>
+#include <bmp390.h>
+#include <UltimateGPS.h>
 
 void setup() {
   Serial.begin(115200);
   initBNO086();
+  initBMP390();
+  initUltimateGPS();
+  delay(1000);
 }
 
 void loop() {
-  delay(500);
-  readBNO086();
-  readRotationVector();
-  readlinearAccelerometer();
-  readMagnetometer();
-  readGyroIntegratedRotationVector();
-  
-  Serial.print("QuatI: ");
-  Serial.print(quatI);
+  readRotationVector();  
+  readBMP390();
+  readUltimateGPS();
+
+  Serial.print("roll: ");
+  Serial.print(roll);
   Serial.print(' ');
 
-  Serial.print("Quatj: ");
-  Serial.print(quatJ);
+  Serial.print("pitch: ");
+  Serial.print(pitch);
   Serial.print(' ');
 
-  Serial.print("Quatk: ");
-  Serial.print(quatK);
-  Serial.println(" ");
+  Serial.print("yaw: ");
+  Serial.print(yaw);
+  Serial.print(" ");
 
-  Serial.print("QuatReal: ");
-  Serial.print(quatReal);
-  Serial.println(" ");
-
-  Serial.print("LinaccelZ: ");
-  Serial.print(linaccelZ);
-  Serial.print(' ');
-  
-  Serial.print("LinaccelY: ");
-  Serial.print(linaccelY);
+  Serial.print("temperature: ");
+  Serial.print(temperature);
   Serial.print(' ');
 
-  Serial.print("LinaccelX: ");
-  Serial.print(linaccelX);
-  Serial.println(" ");
-
-  Serial.print("MagX: ");
-  Serial.print(MagX);
+  Serial.print("pressure: ");
+  Serial.print(pressure);
   Serial.print(' ');
 
-  Serial.print("MagY: ");
-  Serial.print(MagY);
+  Serial.print("altitude: ");
+  Serial.print(altitudeAltimeter);
   Serial.print(' ');
 
-  Serial.print("MagZ: ");
-  Serial.print(MagZ);
-  Serial.println(" ");
+  Serial.print("latitude: ");
+  Serial.print(latitude);
+  Serial.print(' ');
 
-  
+  Serial.print("longitude: ");
+  Serial.print(longitude);
+  Serial.print(' ');
 
+  Serial.print("altitude: ");
+  Serial.print(altitudeGPS);
+  Serial.print(' ');
 
+  Serial.print("speed: ");
+  Serial.print(speed);
+  Serial.print(' ');
+
+  Serial.print("heading: ");
+  Serial.print(heading);
+  Serial.println();
 
   delay(50);
 }

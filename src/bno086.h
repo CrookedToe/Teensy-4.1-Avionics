@@ -3,16 +3,11 @@
 #include <SparkFun_BNO08x_Arduino_Library.h>
  
 extern BNO08x myIMU;
-extern float quatI, quatJ, quatK, quatReal;  // Add quaternion variables
-extern float linaccelZ, linaccelY, linaccelX;
-extern float MagX, MagY, MagZ;
+extern float roll, pitch, yaw; // Roll, pitch and yaw values
 
+void setReports(void);
 void initBNO086();
-bool readRotationVector();
-bool readlinearAccelerometer();
-bool readMagnetometer();
-bool readGyroIntegratedRotationVector();
+void readRotationVector();
 
-void readBNO086();
 
 #endif // BNO086_H
