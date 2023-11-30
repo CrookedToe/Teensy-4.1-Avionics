@@ -21,7 +21,7 @@ void setupSDWriter() {
     while (1);
   }
 }
-void writeDataToSD(float roll, float pitch, float yaw, float temperature, float pressure, float altitude, float latitude, float longitude, float altitudeGPS, float speed, float heading) {
+void writeDataToSD(float roll, float pitch, float yaw, float temperature, float pressure, float altitude, float gravityx,float gravityy, float gravityz, float latitude, float longitude, float altitudeGPS, float speed, float heading) {
   if (dataFile) {
     dataFile.print(roll);
     dataFile.print(",");
@@ -34,6 +34,12 @@ void writeDataToSD(float roll, float pitch, float yaw, float temperature, float 
     dataFile.print(pressure);
     dataFile.print(",");
     dataFile.print(altitude);
+    dataFile.print(",");
+    dataFile.print(gravityx);
+    dataFile.print(",");
+    dataFile.print(gravityy);
+    dataFile.print(",");
+    dataFile.print(gravityz);
     dataFile.print(",");
     dataFile.print(latitude);
     dataFile.print(",");

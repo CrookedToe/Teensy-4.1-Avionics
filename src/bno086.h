@@ -4,10 +4,12 @@
  
 extern BNO08x myIMU;
 extern float roll, pitch, yaw; // Roll, pitch and yaw values
+extern float gravityX, gravityY, gravityZ; // Gravity force vector values
 
 void setReports(void);
 void initBNO086();
 void readRotationVector();
+void readGravity();
 
 
 #endif // BNO086_H

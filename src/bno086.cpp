@@ -5,7 +5,7 @@
 BNO08x myIMU;
 
 float roll, pitch, yaw; // Roll, pitch and yaw values
-
+float gravityX, gravityY, gravityZ; // Gravity force vector values
 
 // Here is where you define the sensor outputs you want to receive
 void setReports(void) {
@@ -15,6 +15,12 @@ void setReports(void) {
     Serial.println(F("Output in form roll, pitch, yaw"));
   } else {
     Serial.println("Could not enable rotation vector");
+  }
+  if (myIMU.enableGravity() == true) {
+    Serial.println(F("Gravity enabled"));
+    Serial.println(F("Output in form x, y, z"));
+  } else {
+    Serial.println("Could not enable gravity");
   }
 }
 
@@ -43,7 +49,6 @@ void initBNO086() {
 
 
 void readRotationVector() {
-  delay(10);
 
   if (myIMU.wasReset()) {
     Serial.print("sensor was reset ");
@@ -59,6 +64,26 @@ void readRotationVector() {
     roll = (myIMU.getRoll()) * 180.0 / PI; // Convert roll to degrees
     pitch = (myIMU.getPitch()) * 180.0 / PI; // Convert pitch to degrees
     yaw = (myIMU.getYaw()) * 180.0 / PI; // Convert yaw / heading to degrees
+
+    }
+  }
+}
+void readGravity() {
+
+  if (myIMU.wasReset()) {
+    Serial.print("sensor was reset ");
+    setReports();
+  }
+
+  // Has a new event come in on the Sensor Hub Bus?
+  if (myIMU.getSensorEvent() == true) {
+
+    // is it the correct sensor data we want?
+    if (myIMU.getSensorEventID() == SENSOR_REPORTID_GRAVITY) {
+
+    gravityX = myIMU.getGravityX();
+    gravityY = myIMU.getGravityY();
+    gravityZ = myIMU.getGravityZ();
 
     }
   }

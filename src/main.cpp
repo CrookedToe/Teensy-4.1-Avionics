@@ -3,6 +3,7 @@
 #include <bmp390.h>
 #include <UltimateGPS.h>
 #include <SDWriter.h>
+
 void setup() {
   Serial.begin(115200);
   setupSDWriter();
@@ -13,7 +14,8 @@ void setup() {
 }
 
 void loop() {
-  readRotationVector();  
+  readRotationVector();
+  readGravity();  
   readBMP390();
   readUltimateGPS();
 
@@ -41,6 +43,19 @@ void loop() {
   Serial.print(altitudeAltimeter);
   Serial.print(' ');
 
+  Serial.print("gravityX: ");
+  Serial.print(gravityX);
+  Serial.print(' ');
+
+  Serial.print("gravityY: ");
+  Serial.print(gravityY);
+  Serial.print(' ');
+
+  Serial.print("gravityZ: ");
+  Serial.print(gravityZ);
+  Serial.print(' ');
+
+
   Serial.print("latitude: ");
   Serial.print(latitude);
   Serial.print(' ');
@@ -61,6 +76,6 @@ void loop() {
   Serial.print(heading);
   Serial.println();
 
-  writeDataToSD(roll, pitch, yaw, temperature, pressure, altitudeAltimeter, latitude, longitude, altitudeGPS, speed, heading);
+  writeDataToSD(roll, pitch, yaw, temperature, pressure, altitudeAltimeter, gravityX, gravityY, gravityZ, latitude, longitude, altitudeGPS, speed, heading);
   delay(50);
 }
