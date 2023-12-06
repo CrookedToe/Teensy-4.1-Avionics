@@ -3,13 +3,14 @@
 #include <bmp390.h>
 #include <UltimateGPS.h>
 #include <SDWriter.h>
-
+#include <payloadDeploy.h>
 void setup() {
   Serial.begin(115200);
-//  setupSDWriter();
+  setupSDWriter();
   initBNO086();
   initBMP390();
   initUltimateGPS();
+//  payloadDeploySetup();
   delay(2000);
 }
 
@@ -18,7 +19,7 @@ void loop() {
   readRotationVector();
   readBMP390();
   readUltimateGPS();
-
+//  payloadDeploy();
   Serial.print("roll: ");
   Serial.print(roll);
   Serial.print(' ');
