@@ -6,7 +6,7 @@
 
 void setup() {
   Serial.begin(115200);
-  setupSDWriter();
+//  setupSDWriter();
   initBNO086();
   initBMP390();
   initUltimateGPS();
