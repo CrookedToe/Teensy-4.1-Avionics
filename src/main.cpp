@@ -3,10 +3,11 @@
 #include <bmp390.h>
 #include <UltimateGPS.h>
 #include <SDWriter.h>
+#include <vector>
 
 void setup() {
   Serial.begin(115200);
-//  setupSDWriter();
+  setupSDWriter();
   initBNO086();
   initBMP390();
   initUltimateGPS();
@@ -76,6 +77,8 @@ void loop() {
   Serial.print(heading);
   Serial.println();
 
-  writeDataToSD(roll, pitch, yaw, temperature, pressure, altitudeAltimeter, gravityX, gravityY, gravityZ, latitude, longitude, altitudeGPS, speed, heading);
-  delay(250);
+std::vector<float> dataPoints = {roll, pitch, yaw, temperature, pressure, altitudeAltimeter, gravityX, gravityY, gravityZ, latitude, longitude, altitudeGPS, speed, heading};
+
+writeDataToSD(dataPoints);  
+delay(250);
 }

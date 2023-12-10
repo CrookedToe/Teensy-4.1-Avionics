@@ -1,6 +1,7 @@
 // SDWriter.cpp
 #include <SD.h>
 #include <SPI.h>
+#include <vector>
 
 
 File dataFile;
@@ -27,29 +28,19 @@ void printData(float data) {
     dataFile.print(",");
 }
 
-void writeDataToSD(float roll, float pitch, float yaw, float temperature, float pressure, float altitude, float gravityx,float gravityy, float gravityz, float latitude, float longitude, float altitudeGPS, float speed, float heading) {
-  if (dataFile) {
-    printData(roll);
-    printData(pitch);
-    printData(yaw);
-    printData(temperature);
-    printData(pressure);
-    printData(altitude);
-    printData(gravityx);
-    printData(gravityy);
-    printData(gravityz);
-    printData(latitude);
-    printData(longitude);
-    printData(altitudeGPS);
-    printData(speed);
-    
-    int bytesWritten = dataFile.println(heading);
-    if(bytesWritten == 0) {
-        Serial.println("Write failed");
+void writeDataToSD(const std::vector<float>& dataPoints) {
+    if (dataFile) {
+        for (float data : dataPoints) {
+            printData(data);
+        }
+        
+        int bytesWritten = dataFile.println(); // Add a newline at the end of the data row
+        if(bytesWritten == 0) {
+            Serial.println("Write failed");
         }
         dataFile.flush();
-    if(!dataFile) {
-        Serial.println("Flush failed or file got closed");
+        if(!dataFile) {
+            Serial.println("Flush failed or file got closed");
         }
     }
 }
