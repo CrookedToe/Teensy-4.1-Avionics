@@ -2,7 +2,7 @@
 #include <Adafruit_Sensor.h>
 #include "Adafruit_BMP3XX.h"
 #include <Wire.h>
-#include "payloadDeploy.h"
+#include "globalvar.h"
 
 Adafruit_BMP3XX bmp; // I2C
 
@@ -39,7 +39,3 @@ void readBMP390() {
 
 }
 
-void altitudefromlaunchpad() {
-  if (rflinktrigger == 1) {
-    launchpadAltitude = altitudeAltimeter;
-  }

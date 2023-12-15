@@ -1,15 +1,15 @@
 #ifndef BNO086_H
 #define BNO086_H
 #include <SparkFun_BNO08x_Arduino_Library.h>
- 
+#include "globalvar.h"
+
 extern BNO08x myIMU;
-extern float roll, pitch, yaw; // Roll, pitch and yaw values
-extern float gravityX, gravityY, gravityZ; // Gravity force vector values
+
 
 void setReports(void);
 void initBNO086();
-void readRotationVector();
-void readGravity();
+void bno086readRotationVector();
+void bno086readGravity();
 
 
 #endif // BNO086_H

@@ -1,14 +1,14 @@
 #ifndef BNO055_H
 #define BNO055_H
 #include "Adafruit_BNO055.h"
-
+#include "globalvar.h"
 extern Adafruit_BNO055 bno;
-extern float roll, pitch, yaw; // Roll, pitch and yaw values
-extern float gravityX, gravityY, gravityZ; // Gravity force vector values
+
+
 
 void initBNO055();
-void readRotationVector();
-void readGravity();
+void bno055readRotationVector();
+void bno055readGravity();
 
 
 

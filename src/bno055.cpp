@@ -1,10 +1,9 @@
 #include "bno055.h"
 #include "wire.h"
+#include "globalvar.h"
 
 Adafruit_BNO055 bno = Adafruit_BNO055();
 
-float roll, pitch, yaw; // Roll, pitch and yaw values
-float gravityX, gravityY, gravityZ; // Gravity force vector values
 
 // Initialize the BNO055 sensor
 void initBNO055() {
@@ -21,7 +20,7 @@ void initBNO055() {
 }
 
 // Read the rotation vector from the BNO055 sensor
-void readRotationVector() {
+void bno055readRotationVector() {
   sensors_event_t event;
   bno.getEvent(&event);
   roll = event.orientation.x;
@@ -30,7 +29,7 @@ void readRotationVector() {
 }
 
 // Read the gravity vector from the BNO055 sensor
-void readGravity() {
+void bno055readGravity() {
   imu::Vector<3> gravity = bno.getVector(Adafruit_BNO055::VECTOR_GRAVITY);
   gravityX = gravity.x();
   gravityY = gravity.y();

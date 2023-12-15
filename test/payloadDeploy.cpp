@@ -1,6 +1,7 @@
 #include "payloadDeploy.h"
 #include "bmp390.h"
 #include "arduino.h"
+#include "globalvar.h"
 // deploys the payload at the altitude of 550 feet coming down above the launch pad while also being triggered by the radio.
 //altitude from launch pad is set via a button press.
 //the radio works by the rflink which runs a pin high when triggered

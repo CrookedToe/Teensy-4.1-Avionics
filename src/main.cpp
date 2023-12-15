@@ -1,13 +1,17 @@
-#include <bno086.h>
+//#include <bno086.h>
 #include <Wire.h>
 #include <bmp390.h>
 #include <UltimateGPS.h>
 #include <SDWriter.h>
-#include <payloadDeploy.h>
+//#include <payloadDeploy.h>
+#include <bno055.h>
+#include <globalvar.h>
+
 void setup() {
   Serial.begin(115200);
   setupSDWriter();
-  initBNO086();
+//  initBNO086();
+  initBNO055();
   initBMP390();
   initUltimateGPS();
 //  payloadDeploySetup();
@@ -15,8 +19,9 @@ void setup() {
 }
 
 void loop() {
-  readGravity();  
-  readRotationVector();
+  bno055readGravity();  
+  bno055readRotationVector();
+
   readBMP390();
   readUltimateGPS();
 //  payloadDeploy();

@@ -1,7 +1,7 @@
 #include <Wire.h>
 #include "SparkFun_BNO08x_Arduino_Library.h"
 #include "bno086.h"
-
+#include "globalvar.h"
 BNO08x myIMU;
 
 float roll, pitch, yaw; // Roll, pitch and yaw values
@@ -48,7 +48,7 @@ void initBNO086() {
 
 
 
-void readRotationVector() {
+void bno086readRotationVector() {
 
   if (myIMU.wasReset()) {
     Serial.print("sensor was reset ");
@@ -68,7 +68,7 @@ void readRotationVector() {
     }
   }
 }
-void readGravity() {
+void bno086readGravity() {
 
   if (myIMU.wasReset()) {
     Serial.print("sensor was reset ");
