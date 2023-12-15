@@ -82,6 +82,8 @@ void loop() {
   Serial.print(heading);
   Serial.println();
 
-  writeDataToSD(roll, pitch, yaw, temperature, pressure, altitudeAltimeter, gravityX, gravityY, gravityZ, latitude, longitude, altitudeGPS, speed, heading);
-  delay(250);
+std::vector<float> dataPoints = {roll, pitch, yaw, temperature, pressure, altitudeAltimeter, gravityX, gravityY, gravityZ, latitude, longitude, altitudeGPS, speed, heading};
+
+writeDataToSD(dataPoints);  
+delay(250);
 }
