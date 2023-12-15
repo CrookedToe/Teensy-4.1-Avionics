@@ -1,7 +1,7 @@
 #include <Wire.h>
 #include "SparkFun_BNO08x_Arduino_Library.h"
 #include "bno086.h"
-#include "globalvar.h"
+#include "global.h"
 BNO08x myIMU;
 
 float roll, pitch, yaw; // Roll, pitch and yaw values

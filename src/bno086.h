@@ -1,7 +1,7 @@
 #ifndef BNO086_H
 #define BNO086_H
 #include <SparkFun_BNO08x_Arduino_Library.h>
-#include "globalvar.h"
+#include "global.h"
 
 extern BNO08x myIMU;
 

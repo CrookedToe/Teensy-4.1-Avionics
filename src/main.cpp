@@ -5,8 +5,10 @@
 #include <SDWriter.h>
 //#include <payloadDeploy.h>
 #include <bno055.h>
-#include <globalvar.h>
+#include <global.h>
 #include <vector>
+#include <payloadDeploy.h>
+
 
 void setup() {
   Serial.begin(115200);
@@ -16,6 +18,7 @@ void setup() {
   initBMP390();
   initUltimateGPS();
 //  payloadDeploySetup();
+  setupPayloadDeploy();
 
   delay(2000);
 }
@@ -26,6 +29,7 @@ void loop() {
 
   readBMP390();
   readUltimateGPS();
+  deployPayload();
 //  payloadDeploy();
   Serial.print("roll: ");
   Serial.print(roll);

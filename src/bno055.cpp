@@ -1,6 +1,7 @@
 #include "bno055.h"
 #include "wire.h"
-#include "globalvar.h"
+#include "global.h"
+#include "Adafruit_BNO055.h"
 
 Adafruit_BNO055 bno = Adafruit_BNO055();
 

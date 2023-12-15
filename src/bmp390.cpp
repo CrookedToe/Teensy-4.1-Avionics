@@ -2,11 +2,11 @@
 #include <Adafruit_Sensor.h>
 #include "Adafruit_BMP3XX.h"
 #include <Wire.h>
-#include "globalvar.h"
+#include "global.h"
 
 Adafruit_BMP3XX bmp; // I2C
 
-float temperature, pressure, altitudeAltimeter;
+float temperature, pressure, altitudeAltimeter, previousAltitude;
 
 void initBMP390() {
   Serial.println(F("BMP390 test"));
@@ -31,11 +31,8 @@ void readBMP390() {
     return;
   }
   
-  
   temperature = bmp.temperature;
   pressure = bmp.pressure / 100.0;
+  previousAltitude = altitudeAltimeter; // Store the current altitude to previousAltitude before updating it
   altitudeAltimeter = bmp.readAltitude(1013.25); // this should be adjusted to your local forcase
-
-
 }
-
