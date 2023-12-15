@@ -6,6 +6,7 @@
 //#include <payloadDeploy.h>
 #include <bno055.h>
 #include <globalvar.h>
+#include <vector>
 
 void setup() {
   Serial.begin(115200);
@@ -15,6 +16,7 @@ void setup() {
   initBMP390();
   initUltimateGPS();
 //  payloadDeploySetup();
+
   delay(2000);
 }
 
