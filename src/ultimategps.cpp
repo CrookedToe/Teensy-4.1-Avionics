@@ -4,7 +4,7 @@
 
 
 // what's the name of the hardware serial port?
-#define GPSSerial Serial1
+#define GPSSerial Serial4
 
 float latitude, longitude, altitudeGPS, speed, heading;
 Adafruit_GPS GPS(&GPSSerial);
