@@ -97,8 +97,8 @@ Serial.print(latitude);
 Serial.print(" Longitude: ");
 Serial.print(longitude);
 
-String data = "Latitude: " + String(latitude) + " Longitude: " + String(longitude);
-xbeeloop(data);
+String data = "Latitude: " + String(latitude) + " Longitude: " + String(longitude) + "\n";
+xbeewriteloop(data);
 delay(250);
 }
 

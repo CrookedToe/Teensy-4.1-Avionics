@@ -3,13 +3,20 @@
 
 
 
+
 void xbeesetup() {
   Serial.begin(9600);
-Serial1.begin(9600);
+Serial5.begin(9600);
 }
 
-void xbeeloop(String data) {
+void xbeewriteloop(String data) {
   if (Serial.available()) {
-    Serial.write(data.c_str(), data.length());
+    Serial5.write(data.c_str(), data.length());
+  }
+}
+
+void xbereadloop() {
+  if (Serial5.available()) {
+    xbeechar = Serial5.read();
   }
 }
