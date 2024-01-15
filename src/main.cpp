@@ -8,7 +8,7 @@
 #include <global.h>
 #include <vector>
 #include <payloadDeploy.h>
-
+#include <xbee.h>
 
 void setup() {
   Serial.begin(115200);
@@ -19,7 +19,7 @@ void setup() {
   initUltimateGPS();
 //  payloadDeploySetup();
   setupPayloadDeploy();
-
+  xbeesetup();
   delay(2000);
 }
 
@@ -31,65 +31,74 @@ void loop() {
   readUltimateGPS();
   deployPayload();
 //  payloadDeploy();
-  Serial.print("roll: ");
-  Serial.print(roll);
-  Serial.print(' ');
+  // Serial.print("roll: ");
+  // Serial.print(roll);
+  // Serial.print(' ');
 
-  Serial.print("pitch: ");
-  Serial.print(pitch);
-  Serial.print(' ');
+  // Serial.print("pitch: ");
+  // Serial.print(pitch);
+  // Serial.print(' ');
 
-  Serial.print("yaw: ");
-  Serial.print(yaw);
-  Serial.print(" ");
+  // Serial.print("yaw: ");
+  // Serial.print(yaw);
+  // Serial.print(" ");
 
-  Serial.print("temperature: ");
-  Serial.print(temperature);
-  Serial.print(' ');
+  // Serial.print("temperature: ");
+  // Serial.print(temperature);
+  // Serial.print(' ');
 
-  Serial.print("pressure: ");
-  Serial.print(pressure);
-  Serial.print(' ');
+  // Serial.print("pressure: ");
+  // Serial.print(pressure);
+  // Serial.print(' ');
 
-  Serial.print("altitude: ");
-  Serial.print(altitudeAltimeter);
-  Serial.print(' ');
+  // Serial.print("altitude: ");
+  // Serial.print(altitudeAltimeter);
+  // Serial.print(' ');
 
-  Serial.print("gravityX: ");
-  Serial.print(gravityX);
-  Serial.print(' ');
+  // Serial.print("gravityX: ");
+  // Serial.print(gravityX);
+  // Serial.print(' ');
 
-  Serial.print("gravityY: ");
-  Serial.print(gravityY);
-  Serial.print(' ');
+  // Serial.print("gravityY: ");
+  // Serial.print(gravityY);
+  // Serial.print(' ');
 
-  Serial.print("gravityZ: ");
-  Serial.print(gravityZ);
-  Serial.print(' ');
+  // Serial.print("gravityZ: ");
+  // Serial.print(gravityZ);
+  // Serial.print(' ');
 
 
-  Serial.print("latitude: ");
-  Serial.print(latitude);
-  Serial.print(' ');
+  // Serial.print("latitude: ");
+  // Serial.print(latitude);
+  // Serial.print(' ');
 
-  Serial.print("longitude: ");
-  Serial.print(longitude);
-  Serial.print(' ');
+  // Serial.print("longitude: ");
+  // Serial.print(longitude);
+  // Serial.print(' ');
 
-  Serial.print("altitude: ");
-  Serial.print(altitudeGPS);
-  Serial.print(' ');
+  // Serial.print("altitude: ");
+  // Serial.print(altitudeGPS);
+  // Serial.print(' ');
 
-  Serial.print("speed: ");
-  Serial.print(speed);
-  Serial.print(' ');
+  // Serial.print("speed: ");
+  // Serial.print(speed);
+  // Serial.print(' ');
 
-  Serial.print("heading: ");
-  Serial.print(heading);
-  Serial.println();
+  // Serial.print("heading: ");
+  // Serial.print(heading);
+  // Serial.println();
 
 std::vector<float> dataPoints = {roll, pitch, yaw, temperature, pressure, altitudeAltimeter, gravityX, gravityY, gravityZ, latitude, longitude, altitudeGPS, speed, heading};
 
-writeDataToSD(dataPoints);  
+writeDataToSD(dataPoints);
+
+Serial.print("Latitude: ");
+Serial.print(latitude);
+Serial.print(" Longitude: ");
+Serial.print(longitude);
+
+String data = "Latitude: " + String(latitude) + " Longitude: " + String(longitude);
+xbeeloop(data);
 delay(250);
 }
+
