@@ -3,8 +3,7 @@
 #include "arduino.h"
 #include "xbee.h"
 
-
-int PIN_NUMBER;
+int PIN_NUMBER; 
 bool payloadDeployed;
 bool deploy;
 
@@ -13,11 +12,11 @@ void setupPayloadDeploy() {
     digitalWrite(PIN_NUMBER, LOW); 
     payloadDeployed = false;
     PIN_NUMBER = 0;
-    bool deploy = false;
+    deploy = false;
 }
 void deployPayload() {
     if (xbeechar == 'd') {
-        bool deploy = true;
+        deploy = true;
     }
 
     if (altitudeAltimeter >= 525.0 && altitudeAltimeter <= 575.0 && altitudeAltimeter < previousAltitude && !payloadDeployed && deploy == true) {

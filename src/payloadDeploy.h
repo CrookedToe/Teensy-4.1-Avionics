@@ -1,8 +1,8 @@
 #ifndef PAYLOADDEPLOY_H
 #define PAYLOADDEPLOY_H
 
-    int PIN_NUMBER;
-    bool payloadDeployed;
+extern int PIN_NUMBER;
+extern bool payloadDeployed;
 
 void setupPayloadDeploy();
 void deployPayload();

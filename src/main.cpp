@@ -97,7 +97,7 @@ Serial.print(latitude);
 Serial.print(" Longitude: ");
 Serial.print(longitude);
 
-String data = "Latitude: " + String(latitude) + " Longitude: " + String(longitude) + "\n";
+std::string data = std::string("Latitude: ") + String(latitude).c_str() + " Longitude: " + String(longitude).c_str() + "\n";
 xbeewriteloop(data);
 delay(250);
 }
