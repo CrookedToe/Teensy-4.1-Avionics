@@ -9,7 +9,10 @@
 #include <vector>
 #include <payloadDeploy.h>
 #include <xbee.h>
-
+unsigned long previousMillis = 0;  // will store the last time the GPS was read
+const long interval = 250;  // the non-blocking delay interval (250 milliseconds)
+  char lat_str[10];
+  char lon_str[10];
 void setup() {
   Serial.begin(115200);
   setupSDWriter();
@@ -24,12 +27,7 @@ void setup() {
 }
 
 void loop() {
-  bno055readGravity();  
-  bno055readRotationVector();
-
-  readBMP390();
   readUltimateGPS();
-  deployPayload();
 //  payloadDeploy();
   // Serial.print("roll: ");
   // Serial.print(roll);
@@ -88,17 +86,29 @@ void loop() {
   // Serial.print(heading);
   // Serial.println();
 
-std::vector<float> dataPoints = {roll, pitch, yaw, temperature, pressure, altitudeAltimeter, gravityX, gravityY, gravityZ, latitude, longitude, altitudeGPS, speed, heading};
 
-writeDataToSD(dataPoints);
 
-Serial.print("Latitude: ");
-Serial.print(latitude);
-Serial.print(" Longitude: ");
-Serial.print(longitude);
 
-std::string data = std::string("Latitude: ") + String(latitude).c_str() + " Longitude: " + String(longitude).c_str() + "\n";
-xbeewriteloop(data);
-delay(250);
+  unsigned long currentMillis = millis();
+  if (currentMillis - previousMillis >= interval) {
+    previousMillis = currentMillis;
+  std::vector<float> dataPoints = {roll, pitch, yaw, temperature, pressure, altitudeAltimeter, gravityX, gravityY, gravityZ, latitude, longitude, altitudeGPS, speed, heading};
+  writeDataToSD(dataPoints);
+
+  Serial.print("Latitude: ");
+  Serial.print(latitude, 6);
+  Serial.print(" Longitude: ");
+  Serial.print(longitude, 6);
+
+  dtostrf(latitude, 4, 6, lat_str);
+  dtostrf(longitude, 4, 6, lon_str);
+    // Put the code you want to run every 250 milliseconds here
+  std::string data = std::string("Latitude: ") + lat_str + " Longitude: " + lon_str + "\n";
+  xbeewriteloop(data);
+  bno055readGravity();  
+  bno055readRotationVector();
+  deployPayload();
+  readBMP390();
+  }
 }
 

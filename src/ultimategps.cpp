@@ -17,7 +17,8 @@ void initUltimateGPS() {
   // make this baud rate fast enough to we aren't waiting on it
   // wait for hardware serial to appear
   // 9600 baud is the default rate for the Ultimate GPS
-    GPS.begin(9600);
+  Serial4.begin(9600); // For the GPS module
+  GPS.begin(9600);
   // uncomment this line to turn on RMC (recommended minimum) and GGA (fix data) including altitude
   GPS.sendCommand(PMTK_SET_NMEA_OUTPUT_RMCGGA);
   // uncomment this line to turn on only the "minimum recommended" data
@@ -40,10 +41,9 @@ void initUltimateGPS() {
 
 
 void readUltimateGPS() {
-    Serial.println(GPS.fix ? "GPS module has a fix" : "GPS module does not have a fix");
+  char c = GPS.read();
   if (GPS.newNMEAreceived()) {
     if (!GPS.parse(GPS.lastNMEA())) {
-      Serial.println("Failed to parse NMEA sentence");
       return;
     }
     latitude = GPS.latitudeDegrees;
@@ -51,7 +51,18 @@ void readUltimateGPS() {
     altitudeGPS = GPS.altitude;
     speed = GPS.speed;
     heading = GPS.angle;
-  } else {
-    Serial.println("No new NMEA sentence received");
+  }
+  if (millis() - timer > 2000) {
+    timer = millis();
+    if (GPS.fix) {
+      Serial.print("Location: ");
+      Serial.print(GPS.latitude, 4); Serial.print(GPS.lat);
+      Serial.print(", ");
+      Serial.print(GPS.longitude, 4); Serial.println(GPS.lon);
+      Serial.print("Speed (knots): "); Serial.println(GPS.speed);
+      Serial.print("Angle: "); Serial.println(GPS.angle);
+      Serial.print("Altitude: "); Serial.println(GPS.altitude);
+      Serial.print("Satellites: "); Serial.println((int)GPS.satellites);
+    }
   }
 }
