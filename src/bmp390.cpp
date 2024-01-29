@@ -18,7 +18,7 @@ Adafruit_BMP3XX bmp;
 float temperature, pressure, altitudeAltimeter, previousAltitude, groundLevel;
 
 // Constants for moving average filter
-const int WINDOW_SIZE = 5;
+const int WINDOW_SIZE = 3;
 // Buffers for moving average filter
 float altitudeBuffer[WINDOW_SIZE] = {0};
 float altitudeSum = 0;

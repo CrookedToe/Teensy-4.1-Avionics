@@ -5,8 +5,8 @@
 
 // Constants for payload deployment
 const int PIN_NUMBER = 10; 
-const float ALTITUDE_MIN = 1.0;
-const float ALTITUDE_MAX = 5.0;
+const float ALTITUDE_MIN = 152.4;
+const float ALTITUDE_MAX = 167.640;
 
 // Variables for payload deployment
 bool payloadDeployed;
@@ -35,8 +35,11 @@ void deployPayload() {
     if ((altitudeAltimeter - groundLevel) >= ALTITUDE_MIN && (altitudeAltimeter - groundLevel) <= ALTITUDE_MAX && altitudeAltimeter < previousAltitude && !payloadDeployed && deploy) {
         digitalWrite(PIN_NUMBER, HIGH); // Set the pin to high
         payloadDeployed = true; // Set payloadDeployed to true
-        delay(100);
+        delay(300);
         Serial5.println("Payload Deployed");
+        Serial5.println("Payload Deployed");
+        Serial5.println("Payload Deployed");
+
         digitalWrite(PIN_NUMBER, LOW); // Set the pin to low
     }
 }
