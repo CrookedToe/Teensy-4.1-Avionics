@@ -80,6 +80,5 @@ void loop() {
     // Send data via XBee
     xbeewriteloop(data);
   }
-  serialToXbeeLoop();
 }
 

@@ -29,13 +29,3 @@ char xbeereadloop() {
   return '\0';
 }
 
-// Function to send data from serial monitor to the XBee
-void serialToXbeeLoop() {
-    // Check if data is available to read from the serial monitor
-    while (Serial.available()) {
-        // Read a character from the serial monitor
-        char c = Serial.read();
-        // Write the character to the XBee
-        Serial5.write(c);
-    }
-}

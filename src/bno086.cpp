@@ -39,22 +39,22 @@ void initBNO086() {
 
   // Check if BNO08x sensor is connected
   if (!myIMU.begin()) {
-    Serial.println("BNO08x not detected at default I2C address. Check your jumpers and the hookup guide. Freezing...");
+    Serial5.println("BNO08x not detected at default I2C address. Check your jumpers and the hookup guide. Freezing...");
     while (1);
   }
 
-  Serial.println("BNO08x found!");
+  Serial5.println("BNO08x found!");
 
   setReports();
 
-  Serial.println("Reading events");
+  Serial5.println("Reading events");
   delay(250);
 }
 
 // Function to read rotation vector from BNO086 sensor
 void bno086readRotationVector() {
   if (myIMU.wasReset()) {
-    Serial.print("sensor was reset ");
+    Serial.print("bno086 sensor was reset ");
     setReports();
   }
 
@@ -73,7 +73,7 @@ void bno086readRotationVector() {
 // Function to read gravity vector from BNO086 sensor
 void bno086readGravity() {
   if (myIMU.wasReset()) {
-    Serial.print("sensor was reset ");
+    Serial.print("bno086 sensor was reset ");
     setReports();
   }
 

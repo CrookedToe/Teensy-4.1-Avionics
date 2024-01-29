@@ -19,7 +19,7 @@ float temperature, pressure, altitudeAltimeter, previousAltitude;
 
 // Function to initialize BMP390 sensor
 void initBMP390() {
-  Serial.println(F("Initializing BMP390..."));
+  Serial5.println(F("Initializing BMP390..."));
 
   // Start the I2C bus on pins 37 (SDA1) and 38 (SCL1)
   Wire1.begin();
@@ -27,7 +27,7 @@ void initBMP390() {
 
   // Check if BMP3 sensor is connected
   if (!bmp.begin_I2C()) {
-    Serial.println(F("Could not find a valid BMP3 sensor, check wiring!"));
+    Serial5.println(F("Could not find a valid BMP3 sensor, check wiring!"));
     return; // Return from function if sensor is not found
   }
 
@@ -44,7 +44,7 @@ void initBMP390() {
 void readBMP390() {
   // Perform sensor reading
   if (!bmp.performReading()) {
-    Serial.println("Failed to perform reading :(");
+    Serial5.println("Failed to perform reading :(");
     return;
   }
 
