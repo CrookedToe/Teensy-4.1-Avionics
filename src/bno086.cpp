@@ -12,20 +12,20 @@ float gravityX, gravityY, gravityZ; // Gravity force vector values
 
 // Function to enable desired sensor outputs
 void setReports() {
-  Serial.println("Setting desired reports");
+  Serial5.println("Setting desired reports");
 
   if (myIMU.enableRotationVector()) {
-    Serial.println(F("Rotation vector enabled"));
-    Serial.println(F("Output in form roll, pitch, yaw"));
+    Serial5.println(("Rotation vector enabled"));
+    Serial5.println(("Output in form roll, pitch, yaw"));
   } else {
-    Serial.println("Could not enable rotation vector");
+    Serial5.println("Could not enable rotation vector");
   }
 
   if (myIMU.enableGravity()) {
-    Serial.println(F("Gravity enabled"));
-    Serial.println(F("Output in form x, y, z"));
+    Serial5.println(("Gravity enabled"));
+    Serial5.println(("Output in form x, y, z"));
   } else {
-    Serial.println("Could not enable gravity");
+    Serial5.println("Could not enable gravity");
   }
 }
 
@@ -39,15 +39,15 @@ void initBNO086() {
 
   // Check if BNO08x sensor is connected
   if (!myIMU.begin()) {
-    Serial5.println("BNO08x not detected at default I2C address. Check your jumpers and the hookup guide. Freezing...");
+    Serial.println("BNO08x not detected at default I2C address. Check your jumpers and the hookup guide. Freezing...");
     while (1);
   }
 
-  Serial5.println("BNO08x found!");
+  Serial.println("BNO08x found!");
 
   setReports();
 
-  Serial5.println("Reading events");
+  Serial.println("Reading events");
   delay(250);
 }
 

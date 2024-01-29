@@ -14,7 +14,9 @@ void xbeesetup() {
 // Function to write data to the XBee
 void xbeewriteloop(std::string data) {
     // Write the data to the XBee
-    Serial5.write(data.c_str(), data.length());
+  size_t bytesWritten = Serial5.write(data.c_str(), data.length());
+
+    Serial.println(bytesWritten);
 }
 
 // Function to read data from the XBee
@@ -25,7 +27,8 @@ char xbeereadloop() {
     xbeechar = Serial5.read();
     return xbeechar;
   }
-  // Return null character if no data is available
-  return '\0';
+  else {
+    return '0';
+  }
 }
 

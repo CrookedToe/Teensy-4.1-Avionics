@@ -6,7 +6,7 @@ extern char xbeechar;
 
 void xbeesetup();
 void xbeewriteloop(std::string data);
-void xbereadloop();
+char xbeereadloop();
 void serialToXbeeLoop();
 
 #endif

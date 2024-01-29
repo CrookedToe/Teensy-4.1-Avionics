@@ -4,7 +4,7 @@
 extern float roll, pitch, yaw;
 extern float gravityX, gravityY, gravityZ;
 extern int rflinktrigger;
-extern float temperature, pressure, altitudeAltimeter;
+extern float temperature, pressure, altitudeAltimeter, groundLevel;
 extern float latitude, longitude, altitudeGPS, speed, heading;
 extern float bmpTemperature, bmpPressure;
 extern float bmpAltitude;

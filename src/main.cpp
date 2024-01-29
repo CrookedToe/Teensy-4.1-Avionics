@@ -10,8 +10,8 @@
 
 unsigned long previousMillis = 0;  // will store the last time the GPS was read
 unsigned long previousMillisXBee = 0;  // will store the last time the XBee data was sent
-const long interval = 250;  // the non-blocking delay interval (250 milliseconds)
-const long intervalXBee = 2000;  // the non-blocking delay interval for XBee data sending (2000 milliseconds)
+const long interval = 100;  // the non-blocking delay interval (250 milliseconds)
+const long intervalXBee = 3000;  // the non-blocking delay interval for XBee data sending (2000 milliseconds)
 
 
 char lat_str[10];
@@ -19,12 +19,13 @@ char lon_str[10];
 
 void setup() {
   Serial.begin(115200);
+  xbeesetup();
   setupSDWriter();
   initBNO055();
   initBMP390();
   initUltimateGPS();
   setupPayloadDeploy();
-  xbeesetup();
+  Serial5.println("Test message");
   delay(2000);
 }
 
@@ -39,7 +40,8 @@ void loop() {
     {"Yaw: ", yaw}, 
     {"Temperature: ", temperature}, 
     {"Pressure: ", pressure}, 
-    {"Altitude Altimeter: ", altitudeAltimeter}, 
+    {"Altitude Altimeter: ", altitudeAltimeter},
+    {"Ground Level: ", groundLevel},
     {"Gravity X: ", gravityX}, 
     {"Gravity Y: ", gravityY}, 
     {"Gravity Z: ", gravityZ}, 
@@ -80,5 +82,6 @@ void loop() {
     // Send data via XBee
     xbeewriteloop(data);
   }
+  xbeereadloop();
 }
 

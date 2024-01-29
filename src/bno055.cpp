@@ -16,7 +16,6 @@ void initBNO055() {
   // Check if BNO055 sensor is connected
   if (!bno.begin()) {
     Serial5.println("No BNO055 detected. Check your wiring or I2C address");
-    return; // Return from function if sensor is not found
   }
 
   // Delay to ensure sensor is ready
