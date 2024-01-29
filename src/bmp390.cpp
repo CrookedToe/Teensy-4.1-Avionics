@@ -15,7 +15,7 @@ const float ALTITUDE_ADJUSTMENT = 1013.25; // This should be adjusted to your lo
 Adafruit_BMP3XX bmp;
 
 // Variables to store sensor readings
-float temperature, pressure, altitudeAltimeter, previousAltitude, groundLevel;
+float temperature, pressure, altitudeAltimeter, previousAltitude, groundLevel, altitudefromlaunchpad;
 
 // Constants for moving average filter
 const int WINDOW_SIZE = 3;
@@ -23,7 +23,6 @@ const int WINDOW_SIZE = 3;
 float altitudeBuffer[WINDOW_SIZE] = {0};
 float altitudeSum = 0;
 int altitudeIndex = 0;
-
 
 // Function to initialize BMP390 sensor
 void initBMP390() {
@@ -73,4 +72,5 @@ void readBMP390() {
 
   // Calculate moving average of altitude
   altitudeAltimeter = altitudeSum / WINDOW_SIZE;
+  altitudefromlaunchpad = altitudeAltimeter - groundLevel;
 }

@@ -25,9 +25,9 @@ void setupPayloadDeploy() {
 void deployPayload() {
     if (xbeechar == 'd' && !deploy) {
         deploy = true; // Set deploy to true if xbeechar is 'd'
-        Serial5.println("Payload Deployment Enabled");
-        Serial5.println("Payload Deployment Enabled");
-        Serial5.println("Payload Deployment Enabled");
+        Serial5.println("PAYLOAD DEPLOYMENT ENABLED");
+        Serial5.println("PAYLOAD DEPLOYMENT ENABLED");
+        Serial5.println("PAYLOAD DEPLOYMENT ENABLED");
 
     }
 
@@ -36,9 +36,9 @@ void deployPayload() {
         digitalWrite(PIN_NUMBER, HIGH); // Set the pin to high
         payloadDeployed = true; // Set payloadDeployed to true
         delay(300);
-        Serial5.println("Payload Deployed");
-        Serial5.println("Payload Deployed");
-        Serial5.println("Payload Deployed");
+        Serial5.println("PAYLOAD DEPLOYED");
+        Serial5.println("PAYLOAD DEPLOYED");
+        Serial5.println("PAYLOAD DEPLOYED");
 
         digitalWrite(PIN_NUMBER, LOW); // Set the pin to low
     }

@@ -8,7 +8,7 @@ extern float temperature, pressure, altitudeAltimeter, groundLevel;
 extern float latitude, longitude, altitudeGPS, speed, heading;
 extern float bmpTemperature, bmpPressure;
 extern float bmpAltitude;
-extern float launchpadAltitude;
+extern float altitudefromlaunchpad;
 extern float previousAltitude;
 
 #endif // GLOBALVAR_H

@@ -42,6 +42,7 @@ void loop() {
     {"Pressure: ", pressure}, 
     {"Altitude Altimeter: ", altitudeAltimeter},
     {"Ground Level: ", groundLevel},
+    {"Altitude from Launchpad: ", altitudefromlaunchpad},
     {"Gravity X: ", gravityX}, 
     {"Gravity Y: ", gravityY}, 
     {"Gravity Z: ", gravityZ}, 

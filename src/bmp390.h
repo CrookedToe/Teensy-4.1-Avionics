@@ -4,7 +4,6 @@
 
 void initBMP390();
 void readBMP390();
-void altitudefromlaunchpad();
 
 
 #endif // BMP390_H
