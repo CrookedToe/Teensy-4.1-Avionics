@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 
-extern float latitude, longitude, altitudeGPS, speed, heading;
+extern float latitude, longitude, altitudeGPS, speed, heading, SatelliteCount;
 
 void initUltimateGPS();
 void readUltimateGPS();

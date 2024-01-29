@@ -11,5 +11,4 @@ extern float bmpAltitude;
 extern float launchpadAltitude;
 extern float previousAltitude;
 
-
 #endif // GLOBALVAR_H

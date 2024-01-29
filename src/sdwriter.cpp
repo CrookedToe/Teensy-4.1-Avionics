@@ -1,25 +1,23 @@
-// SDWriter.cpp
 #include <SD.h>
 #include <SPI.h>
 #include <vector>
 
-
 File dataFile;
+
+// Constants for SD card writer
+const char* FILE_NAME = "datalog.csv";
 
 void setupSDWriter() {
   if (!SD.begin(BUILTIN_SDCARD)) {
     Serial.println("Card failed, or not present");
-    // don't do anything more:
-    while (1);
+    return; // Return from function if SD card initialization fails
   }
   Serial.println("card initialized.");
   
-  // Open up the file we're going to log to!
-  dataFile = SD.open("datalog.csv", FILE_WRITE);
+  dataFile = SD.open(FILE_NAME, FILE_WRITE);
   if (!dataFile) {
     Serial.println("error opening datalog.csv");
-    // Wait forever since we cant write data
-    while (1);
+    return; // Return from function if file opening fails
   }
 }
 
@@ -34,7 +32,7 @@ void writeDataToSD(const std::vector<float>& dataPoints) {
             printData(data);
         }
         
-        int bytesWritten = dataFile.println(); // Add a newline at the end of the data row
+        int bytesWritten = dataFile.println();
         if(bytesWritten == 0) {
             Serial.println("Write failed");
         }

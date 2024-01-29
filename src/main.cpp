@@ -1,26 +1,28 @@
-//#include <bno086.h>
 #include <Wire.h>
+#include <vector>
 #include <bmp390.h>
-#include <UltimateGPS.h>
-#include <SDWriter.h>
-//#include <payloadDeploy.h>
 #include <bno055.h>
 #include <global.h>
-#include <vector>
+#include <UltimateGPS.h>
+#include <SDWriter.h>
 #include <payloadDeploy.h>
 #include <xbee.h>
+
 unsigned long previousMillis = 0;  // will store the last time the GPS was read
+unsigned long previousMillisXBee = 0;  // will store the last time the XBee data was sent
 const long interval = 250;  // the non-blocking delay interval (250 milliseconds)
-  char lat_str[10];
-  char lon_str[10];
+const long intervalXBee = 2000;  // the non-blocking delay interval for XBee data sending (2000 milliseconds)
+
+
+char lat_str[10];
+char lon_str[10];
+
 void setup() {
   Serial.begin(115200);
   setupSDWriter();
-//  initBNO086();
   initBNO055();
   initBMP390();
   initUltimateGPS();
-//  payloadDeploySetup();
   setupPayloadDeploy();
   xbeesetup();
   delay(2000);
@@ -28,87 +30,54 @@ void setup() {
 
 void loop() {
   readUltimateGPS();
-//  payloadDeploy();
-  // Serial.print("roll: ");
-  // Serial.print(roll);
-  // Serial.print(' ');
-
-  // Serial.print("pitch: ");
-  // Serial.print(pitch);
-  // Serial.print(' ');
-
-  // Serial.print("yaw: ");
-  // Serial.print(yaw);
-  // Serial.print(" ");
-
-  // Serial.print("temperature: ");
-  // Serial.print(temperature);
-  // Serial.print(' ');
-
-  // Serial.print("pressure: ");
-  // Serial.print(pressure);
-  // Serial.print(' ');
-
-  // Serial.print("altitude: ");
-  // Serial.print(altitudeAltimeter);
-  // Serial.print(' ');
-
-  // Serial.print("gravityX: ");
-  // Serial.print(gravityX);
-  // Serial.print(' ');
-
-  // Serial.print("gravityY: ");
-  // Serial.print(gravityY);
-  // Serial.print(' ');
-
-  // Serial.print("gravityZ: ");
-  // Serial.print(gravityZ);
-  // Serial.print(' ');
-
-
-  // Serial.print("latitude: ");
-  // Serial.print(latitude);
-  // Serial.print(' ');
-
-  // Serial.print("longitude: ");
-  // Serial.print(longitude);
-  // Serial.print(' ');
-
-  // Serial.print("altitude: ");
-  // Serial.print(altitudeGPS);
-  // Serial.print(' ');
-
-  // Serial.print("speed: ");
-  // Serial.print(speed);
-  // Serial.print(' ');
-
-  // Serial.print("heading: ");
-  // Serial.print(heading);
-  // Serial.println();
-
-
-
 
   unsigned long currentMillis = millis();
+
+  std::vector<std::pair<std::string, float>> dataPoints = {
+    {"Roll: ", roll}, 
+    {"Pitch: ", pitch}, 
+    {"Yaw: ", yaw}, 
+    {"Temperature: ", temperature}, 
+    {"Pressure: ", pressure}, 
+    {"Altitude Altimeter: ", altitudeAltimeter}, 
+    {"Gravity X: ", gravityX}, 
+    {"Gravity Y: ", gravityY}, 
+    {"Gravity Z: ", gravityZ}, 
+    {"Latitude: ", latitude}, 
+    {"Longitude: ", longitude}, 
+    {"Altitude GPS: ", altitudeGPS}, 
+    {"Speed: ", speed}, 
+    {"Heading: ", heading}, 
+    {"Satellite Count: ", SatelliteCount}
+  };
+
   if (currentMillis - previousMillis >= interval) {
     previousMillis = currentMillis;
-  std::vector<float> dataPoints = {roll, pitch, yaw, temperature, pressure, altitudeAltimeter, gravityX, gravityY, gravityZ, latitude, longitude, altitudeGPS, speed, heading};
-  writeDataToSD(dataPoints);
+    
+    std::vector<float> floatDataPoints;
+    for (const auto& point : dataPoints) {
+      floatDataPoints.push_back(point.second);
+    }
+  
+    writeDataToSD(floatDataPoints);
+    bno055readGravity();
+    bno055readRotationVector();
+    deployPayload();
+    readBMP390();
+  }
 
-  Serial.print("Latitude: ");
-  Serial.print(latitude, 6);
-  Serial.print(" Longitude: ");
-  Serial.print(longitude, 6);
+  if (currentMillis - previousMillisXBee >= intervalXBee) {
+    previousMillisXBee = currentMillis;
 
-  dtostrf(latitude, 4, 6, lat_str);
-  dtostrf(longitude, 4, 6, lon_str);
-    // Put the code you want to run every 250 milliseconds here
-  std::string data = std::string("Latitude: ") + lat_str + " Longitude: " + lon_str + "\n";
-  xbeewriteloop(data);
-  bno055readGravity();  
-  bno055readRotationVector();
-  deployPayload();
-  readBMP390();
+    // Convert data points to strings and concatenate them
+    std::string data;
+    for (const auto& point : dataPoints) {
+      char str[10];
+      dtostrf(point.second, 4, 6, str);
+      data += point.first + std::string(str) + "\n";
+    }
+
+    // Send data via XBee
+    xbeewriteloop(data);
   }
 }
-

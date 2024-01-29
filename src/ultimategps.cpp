@@ -1,12 +1,11 @@
-#include "ultimategps.h"
-
+#include <ultimategps.h>
 #include <Adafruit_GPS.h>
-
+#include <xbee.h>
 
 // what's the name of the hardware serial port?
 #define GPSSerial Serial4
 
-float latitude, longitude, altitudeGPS, speed, heading;
+float latitude, longitude, altitudeGPS, speed, heading, SatelliteCount;
 Adafruit_GPS GPS(&GPSSerial);
 
 #define GPSECHO false
@@ -51,18 +50,6 @@ void readUltimateGPS() {
     altitudeGPS = GPS.altitude;
     speed = GPS.speed;
     heading = GPS.angle;
+    SatelliteCount = GPS.satellites;
   }
-  if (millis() - timer > 2000) {
-    timer = millis();
-    if (GPS.fix) {
-      Serial.print("Location: ");
-      Serial.print(GPS.latitude, 4); Serial.print(GPS.lat);
-      Serial.print(", ");
-      Serial.print(GPS.longitude, 4); Serial.println(GPS.lon);
-      Serial.print("Speed (knots): "); Serial.println(GPS.speed);
-      Serial.print("Angle: "); Serial.println(GPS.angle);
-      Serial.print("Altitude: "); Serial.println(GPS.altitude);
-      Serial.print("Satellites: "); Serial.println((int)GPS.satellites);
-    }
-  }
-}
+ }
