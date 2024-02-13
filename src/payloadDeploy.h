@@ -6,5 +6,8 @@ extern bool payloadDeployed;
 
 void setupPayloadDeploy();
 void deployPayload();
+void deployAirbag();
+void thrusterDeploy();
 
 #endif // PAYLOADDEPLOY_H
+
