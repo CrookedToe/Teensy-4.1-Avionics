@@ -5,7 +5,7 @@
 
 // Constants for payload deployment
 const int DEPLOYMENT_PIN_NUMBER = 10; 
-const int AIRBAG_PIN_NUMBER = 11;
+const int AIRBAG_PIN_NUMBER = 24;
 const int THRUSTER_PIN_NUMBER = 12;
 
 const float PAYLOAD_ALTITUDE_MIN = 152.4;
@@ -15,13 +15,13 @@ const float THRUSTER_ALTITUDE_MAX = 12.954;
 
 // Variables for payload deployment
 bool payloadDeployed;
-bool playloadeploy;
+bool playloadDeploy;
 bool airbagDeployed;
 bool thrusterDeployed;
 
 // Function to setup payload deployment
 void setupPayloadDeploy() {
-    playloadeploy = false; // Initialize deploy as false
+    playloadDeploy = false; // Initialize deploy as false
     payloadDeployed = false; // Initialize payloadDeployed as false
     airbagDeployed = false;
     thrusterDeployed = false;
@@ -32,8 +32,8 @@ void setupPayloadDeploy() {
 
 // Function to deploy payload
 void deployPayload() {
-    if (xbeechar == 'd' && !playloadeploy) {
-        playloadeploy = true; // Set deploy to true if xbeechar is 'd'
+    if (xbeechar == 'd' && !playloadDeploy) {
+        playloadDeploy = true; // Set deploy to true if xbeechar is 'd'
         Serial5.println("PAYLOAD DEPLOYMENT ENABLED");
         Serial5.println("PAYLOAD DEPLOYMENT ENABLED");
         Serial5.println("PAYLOAD DEPLOYMENT ENABLED");
@@ -41,10 +41,9 @@ void deployPayload() {
     }
 
     // Check conditions for payload deployment
-    if ((altitudeAltimeter - groundLevel) >= PAYLOAD_ALTITUDE_MIN && (altitudeAltimeter - groundLevel) <= PAYLOAD_ALTITUDE_MAX && altitudeAltimeter < previousAltitude && !payloadDeployed && playloadeploy) {
+    if ((altitudeAltimeter - groundLevel) >= PAYLOAD_ALTITUDE_MIN && (altitudeAltimeter - groundLevel) <= PAYLOAD_ALTITUDE_MAX && altitudeAltimeter < previousAltitude && !payloadDeployed && playloadDeploy) {
         digitalWrite(DEPLOYMENT_PIN_NUMBER, HIGH); // Set the pin to high
         payloadDeployed = true; // Set payloadDeployed to true
-        delay(300);
         Serial5.println("PAYLOAD DEPLOYED");
         Serial5.println("PAYLOAD DEPLOYED");
         Serial5.println("PAYLOAD DEPLOYED");
@@ -57,7 +56,6 @@ void deployAirbag() {
     if ((altitudeAltimeter < previousAltitude) && !airbagDeployed && payloadDeployed) {
         digitalWrite(AIRBAG_PIN_NUMBER, HIGH); // Set the pin to high
         airbagDeployed = true; // Set payloadDeployed to true
-        delay(300);
         Serial5.println("AIRBAG DEPLOYED");
         Serial5.println("AIRBAG DEPLOYED");
         Serial5.println("AIRBAG DEPLOYED");
@@ -68,7 +66,6 @@ void thrusterDeploy() {
     if ((altitudeAltimeter - groundLevel) >= THRUSTER_ALTITUDE_MIN && (altitudeAltimeter - groundLevel) <= THRUSTER_ALTITUDE_MAX && altitudeAltimeter < previousAltitude && airbagDeployed && payloadDeployed && pitch <= -82.5 && pitch >= -97.5) {
         digitalWrite(THRUSTER_PIN_NUMBER, HIGH); // Set the pin to high
         thrusterDeployed = true; // Set payloadDeployed to true
-        delay(300);
         Serial5.println("THRUSTER DEPLOYED");
         Serial5.println("THRUSTER DEPLOYED");
         Serial5.println("THRUSTER DEPLOYED");
