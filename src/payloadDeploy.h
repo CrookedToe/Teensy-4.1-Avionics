@@ -8,6 +8,6 @@ void setupPayloadDeploy();
 void deployPayload();
 void deployAirbag();
 void thrusterDeploy();
-
+void thrusterKill();
 #endif // PAYLOADDEPLOY_H
 

@@ -10,5 +10,5 @@ extern float bmpTemperature, bmpPressure;
 extern float bmpAltitude;
 extern float altitudefromlaunchpad;
 extern float previousAltitude;
-
+extern bool thrusterDeployed;
 #endif // GLOBALVAR_H

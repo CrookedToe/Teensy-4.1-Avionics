@@ -69,6 +69,9 @@ void loop() {
     deployAirbag();
     thrusterDeploy();
     readBMP390();
+    if (thrusterDeployed) {
+      thrusterKill();
+    }
   }
 
   if (currentMillis - previousMillisXBee >= intervalXBee) {
