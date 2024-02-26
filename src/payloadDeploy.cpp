@@ -7,28 +7,6 @@
 Servo Servo1;
 Servo Servo2;
 
-const int SERVO1_PIN = 9;
-const int SERVO2_PIN = 8;
-
-// Constants for payload deployment
-const int DEPLOYMENT_PIN_NUMBER = 10; 
-const int DEPLOYMENT_PAYLOAD_DISCONNECTED = 11;
-const int AIRBAG_PIN_NUMBER = 24;
-const int THRUSTER_PIN_NUMBER = 12;
-
-const float PAYLOAD_ALTITUDE_MIN = 152.4;
-const float PAYLOAD_ALTITUDE_MAX = 167.640;
-const float THRUSTER_ALTITUDE_MIN = 11.43;
-const float THRUSTER_ALTITUDE_MAX = 12.954;
-
-// Variables for payload deployment
-bool payloadDeployed;
-bool payloadDeploy;
-bool airbagDeployed;
-bool thrusterKilled;
-bool thrusterDeployed;
-bool payloadDisconnected;
-
 // Function to setup payload deployment
 void setupPayloadDeploy() {
     payloadDeploy = false; // Initialize deploy as false
@@ -89,7 +67,7 @@ void deployAirbag() {
 }
 
 void thrusterDeploy() {
-    if ((altitudeAltimeter - groundLevel) >= THRUSTER_ALTITUDE_MIN && (altitudeAltimeter - groundLevel) <= THRUSTER_ALTITUDE_MAX && altitudeAltimeter < previousAltitude && airbagDeployed && payloadDeployed && pitch <= -82.5 && pitch >= -97.5 && !thrusterDeployed && !thrusterKilled && payloadDisconnected) {
+    if ((altitudeAltimeter - groundLevel) >= THRUSTER_ALTITUDE_MIN && (altitudeAltimeter - groundLevel) <= THRUSTER_ALTITUDE_MAX && altitudeAltimeter < previousAltitude && airbagDeployed && payloadDeployed && pitch > MIN_PITCH && pitch < MAX_PITCH && yaw > MIN_YAW && yaw < MAX_YAW && !thrusterDeployed && !thrusterKilled && payloadDisconnected) {
         digitalWrite(THRUSTER_PIN_NUMBER, HIGH); // Set the pin to high
         thrusterDeployed = true; // Set payloadDeployed to true
         Serial5.println("THRUSTER DEPLOYED");
@@ -99,7 +77,7 @@ void thrusterDeploy() {
 }
 
 void thrusterKill() {
-    if (thrusterDeployed && pitch > -82.5 && pitch < -97.5 && !thrusterKilled) {
+    if (thrusterDeployed && (pitch < MIN_PITCH || pitch > MAX_PITCH) || (yaw < MIN_YAW || yaw > MAX_YAW) && !thrusterKilled) {
         digitalWrite(THRUSTER_PIN_NUMBER, LOW); // Set the pin to low
         thrusterKilled = true; // Set payloadDeployed to true
         Serial5.println("THRUSTER KILLED");

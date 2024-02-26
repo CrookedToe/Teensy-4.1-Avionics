@@ -36,12 +36,12 @@ void bno055readRotationVector() {
   yaw = event.orientation.z;
 }
 
-void bno055readGravity() {
-  // Get the gravity vector
-  imu::Vector<3> gravity = bno.getVector(Adafruit_BNO055::VECTOR_GRAVITY);
+void bno055readAcceleration() {
+  // Get the linear acceleration vector
+  imu::Vector<3> acceleration = bno.getVector(Adafruit_BNO055::VECTOR_LINEARACCEL);
 
-  // Store the gravity data
-  gravityX = gravity.x();
-  gravityY = gravity.y();
-  gravityZ = gravity.z();
+  // Store the acceleration data
+  accelX = acceleration.x(); // Consider renaming these variables
+  accelY = acceleration.y(); // to reflect that they now store
+  accelZ = acceleration.z(); // acceleration data, not gravity.
 }

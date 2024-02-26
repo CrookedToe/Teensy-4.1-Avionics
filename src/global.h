@@ -2,7 +2,7 @@
 #define GLOBALVAR_H
 
 extern float roll, pitch, yaw;
-extern float gravityX, gravityY, gravityZ;
+extern float accelX, accelY, accelZ;
 extern int rflinktrigger;
 extern float temperature, pressure, altitudeAltimeter, groundLevel;
 extern float latitude, longitude, altitudeGPS, speed, heading;
