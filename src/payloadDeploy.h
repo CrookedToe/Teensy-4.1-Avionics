@@ -13,6 +13,7 @@ const int DEPLOYMENT_PAYLOAD_DISCONNECTED = 11;
 const int AIRBAG_PIN_NUMBER = 24;
 const int THRUSTER_PIN_NUMBER = 12;
 
+// in meters
 const float PAYLOAD_ALTITUDE_MIN = 152.4;
 const float PAYLOAD_ALTITUDE_MAX = 167.640;
 const float THRUSTER_ALTITUDE_MIN = 11.43;
@@ -26,7 +27,7 @@ const float MAX_YAW = 5;
 
 // Variables for payload deployment
 bool payloadDeployed;
-bool payloadDeploy;
+bool payloadDeployEnabled;
 bool airbagDeployed;
 bool thrusterKilled;
 bool thrusterDeployed;

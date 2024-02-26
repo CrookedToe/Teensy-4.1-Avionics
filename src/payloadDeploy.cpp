@@ -9,7 +9,7 @@ Servo Servo2;
 
 // Function to setup payload deployment
 void setupPayloadDeploy() {
-    payloadDeploy = false; // Initialize deploy as false
+    payloadDeployEnabled = false; // Initialize deploy as false
     payloadDeployed = false; // Initialize payloadDeployed as false
     airbagDeployed = false;
     thrusterDeployed = false;
@@ -28,14 +28,14 @@ void setupPayloadDeploy() {
 
 // Function to deploy payload
 void deployPayload() {
-    if (xbeechar == 'd' && !payloadDeploy) {
-        payloadDeploy = true; // Set deploy to true if xbeechar is 'd'
+    if (xbeechar == 'd' && !payloadDeployEnabled) {
+        payloadDeployEnabled = true; // Set deploy to true if xbeechar is 'd'
         Serial5.println("PAYLOAD DEPLOYMENT ENABLED");
         Serial5.println("PAYLOAD DEPLOYMENT ENABLED");
         Serial5.println("PAYLOAD DEPLOYMENT ENABLED");
 
     }
-    if(payloadDeploy == true && !payloadDeployed){
+    if(payloadDeployEnabled == true && !payloadDeployed){
         if (digitalRead(DEPLOYMENT_PAYLOAD_DISCONNECTED) == LOW) {
             payloadDisconnected = true;
             Serial5.println("PAYLOAD DISCONNECTED");
@@ -44,7 +44,7 @@ void deployPayload() {
         }
     }
     // Check conditions for payload deployment
-    if ((altitudeAltimeter - groundLevel) >= PAYLOAD_ALTITUDE_MIN && (altitudeAltimeter - groundLevel) <= PAYLOAD_ALTITUDE_MAX && altitudeAltimeter < previousAltitude && !payloadDeployed && payloadDeploy) {
+    if ((altitudeAltimeter - groundLevel) >= PAYLOAD_ALTITUDE_MIN && (altitudeAltimeter - groundLevel) <= PAYLOAD_ALTITUDE_MAX && altitudeAltimeter < previousAltitude && !payloadDeployed && payloadDeployEnabled) {
         digitalWrite(DEPLOYMENT_PIN_NUMBER, HIGH); // Set the pin to high
         payloadDeployed = true; // Set payloadDeployed to true
         Serial5.println("PAYLOAD DEPLOYED");
