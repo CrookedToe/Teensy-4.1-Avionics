@@ -2,6 +2,13 @@
 #include <payloadDeploy.h>
 #include <arduino.h>
 #include <xbee.h>
+#include <servo.h>
+
+Servo Servo1;
+Servo Servo2;
+
+const int SERVO1_PIN = 9;
+const int SERVO2_PIN = 8;
 
 // Constants for payload deployment
 const int DEPLOYMENT_PIN_NUMBER = 10; 
@@ -28,6 +35,9 @@ void setupPayloadDeploy() {
     thrusterDeployed = false;
     thrusterKilled = false;
 
+    Servo1.attach(SERVO1_PIN);
+    Servo2.attach(SERVO2_PIN);
+
     pinMode(DEPLOYMENT_PIN_NUMBER, OUTPUT); // Set the pin as output
     pinMode(AIRBAG_PIN_NUMBER, OUTPUT); // Set the pin as output
     pinMode(THRUSTER_PIN_NUMBER, OUTPUT); // Set the pin as output
@@ -52,6 +62,7 @@ void deployPayload() {
         Serial5.println("PAYLOAD DEPLOYED");
         Serial5.println("PAYLOAD DEPLOYED");
         Serial5.println("PAYLOAD DEPLOYED");
+        delay(150);
         digitalWrite(DEPLOYMENT_PIN_NUMBER, LOW); // Set the pin to low
     }
 }
@@ -78,7 +89,7 @@ void thrusterDeploy() {
 }
 
 void thrusterKill() {
-    if (thrusterDeployed && pitch > -82.5 && pitch < -97.5) {
+    if (thrusterDeployed && pitch > -82.5 && pitch < -97.5 && !thrusterKilled) {
         digitalWrite(THRUSTER_PIN_NUMBER, LOW); // Set the pin to low
         thrusterKilled = true; // Set payloadDeployed to true
         Serial5.println("THRUSTER KILLED");
