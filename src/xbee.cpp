@@ -8,13 +8,13 @@ char xbeechar;
 void xbeesetup() {
   // Begin serial communication at 9600 baud rate
   Serial.begin(9600);
-  Serial5.begin(9600);
+  Serial7.begin(9600);
 }
 
 // Function to write data to the XBee
 void xbeewriteloop(std::string data) {
     // Write the data to the XBee
-  size_t bytesWritten = Serial5.write(data.c_str(), data.length());
+  size_t bytesWritten = Serial7.write(data.c_str(), data.length());
 
     Serial.println(bytesWritten);
 }
@@ -22,9 +22,9 @@ void xbeewriteloop(std::string data) {
 // Function to read data from the XBee
 char xbeereadloop() {
   // Check if data is available to read
-  if (Serial5.available()) {
+  if (Serial7.available()) {
     // Read a character from the XBee
-    xbeechar = Serial5.read();
+    xbeechar = Serial7.read();
     return xbeechar;
   }
   else {

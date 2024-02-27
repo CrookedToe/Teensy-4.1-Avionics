@@ -12,20 +12,20 @@ float gravityX, gravityY, gravityZ; // Gravity force vector values
 
 // Function to enable desired sensor outputs
 void setReports() {
-  Serial5.println("Setting desired reports");
+  Serial7.println("Setting desired reports");
 
   if (myIMU.enableRotationVector()) {
-    Serial5.println(("Rotation vector enabled"));
-    Serial5.println(("Output in form roll, pitch, yaw"));
+    Serial7.println(("Rotation vector enabled"));
+    Serial7.println(("Output in form roll, pitch, yaw"));
   } else {
-    Serial5.println("Could not enable rotation vector");
+    Serial7.println("Could not enable rotation vector");
   }
 
   if (myIMU.enableGravity()) {
-    Serial5.println(("Gravity enabled"));
-    Serial5.println(("Output in form x, y, z"));
+    Serial7.println(("Gravity enabled"));
+    Serial7.println(("Output in form x, y, z"));
   } else {
-    Serial5.println("Could not enable gravity");
+    Serial7.println("Could not enable gravity");
   }
 }
 

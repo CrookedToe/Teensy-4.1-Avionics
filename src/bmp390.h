@@ -4,6 +4,6 @@
 
 void initBMP390();
 void readBMP390();
-
+void rateofClimb();
 
 #endif // BMP390_H

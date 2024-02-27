@@ -15,7 +15,7 @@ const float ALTITUDE_ADJUSTMENT = 1013.25; // This should be adjusted to your lo
 Adafruit_BMP3XX bmp;
 
 // Variables to store sensor readings
-float temperature, pressure, altitudeAltimeter, previousAltitude, groundLevel, altitudefromlaunchpad;
+float temperature, pressure, altitudeAltimeter, previousAltitude, groundLevel, altitudefromlaunchpad, rateofChange;
 
 // Constants for moving average filter
 const int WINDOW_SIZE = 3;
@@ -26,7 +26,7 @@ int altitudeIndex = 0;
 
 // Function to initialize BMP390 sensor
 void initBMP390() {
-  Serial5.println(("Initializing BMP390..."));
+  Serial7.println(("Initializing BMP390..."));
   groundLevel = 0.0;
   // Start the I2C bus on pins 37 (SDA1) and 38 (SCL1)
   Wire1.begin();
@@ -34,7 +34,7 @@ void initBMP390() {
 
   // Check if BMP3 sensor is connected
   if (!bmp.begin_I2C()) {
-    Serial5.println(("Could not find a valid BMP3 sensor, check wiring!"));
+    Serial7.println(("Could not find a valid BMP3 sensor, check wiring!"));
   }
 
   // Set up oversampling and filter initialization
@@ -43,7 +43,7 @@ void initBMP390() {
   bmp.setIIRFilterCoeff(IIR_FILTER_COEFF);
   bmp.setOutputDataRate(OUTPUT_DATA_RATE);
 
-  Serial5.println(("BMP390 initialized successfully."));
+  Serial7.println(("BMP390 initialized successfully."));
   bmp.performReading(); // Perform an initial reading to set the ground level
   delay(150);
   bmp.performReading(); // Perform an initial reading to set the ground level
@@ -56,7 +56,7 @@ void initBMP390() {
 void readBMP390() {
   // Perform sensor reading
   if (!bmp.performReading()) {
-    Serial5.println("Failed to perform reading :(");
+    Serial7.println("Failed to perform reading :(");
   }
 
   // Store sensor readings in variables
@@ -73,4 +73,7 @@ void readBMP390() {
   // Calculate moving average of altitude
   altitudeAltimeter = altitudeSum / WINDOW_SIZE;
   altitudefromlaunchpad = altitudeAltimeter - groundLevel;
+}
+void rateofClimb() {
+  rateofChange = (altitudeAltimeter - previousAltitude) / 0.1;
 }

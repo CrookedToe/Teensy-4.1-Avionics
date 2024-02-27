@@ -25,7 +25,7 @@ void setup() {
   initBMP390();
   initUltimateGPS();
   setupPayloadDeploy();
-  Serial5.println("Test message");
+  Serial7.println("Test message");
   delay(2000);
 }
 
@@ -63,7 +63,7 @@ void loop() {
     }
   
     writeDataToSD(floatDataPoints);
-    bno055readGravity();
+    bno055readAcceleration();
     bno055readRotationVector();
     deployPayload();
     deployAirbag();

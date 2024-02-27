@@ -3,6 +3,5 @@
 
 void initBNO055();
 void bno055readRotationVector();
-void bno055readGravity();
-
+void bno055readAcceleration();
 #endif // BN055_H

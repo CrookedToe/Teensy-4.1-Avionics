@@ -3,7 +3,7 @@
 #include <xbee.h>
 
 // what's the name of the hardware serial port?
-#define GPSSerial Serial4
+#define GPSSerial Serial2
 
 float latitude, longitude, altitudeGPS, speed, heading, SatelliteCount;
 Adafruit_GPS GPS(&GPSSerial);

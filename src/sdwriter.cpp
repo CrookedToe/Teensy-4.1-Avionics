@@ -34,11 +34,11 @@ void writeDataToSD(const std::vector<float>& dataPoints) {
         
         int bytesWritten = dataFile.println();
         if(bytesWritten == 0) {
-            Serial5.println("Write failed");
+            Serial7.println("Write failed");
         }
         dataFile.flush();
         if(!dataFile) {
-            Serial5.println("Flush failed or file got closed");
+            Serial7.println("Flush failed or file got closed");
         }
     }
 }

@@ -5,9 +5,9 @@
 
 // Initialize BNO055 sensor
 Adafruit_BNO055 bno = Adafruit_BNO055();
-
 // Constants for BNO055 sensor configuration
 const int SENSOR_INIT_DELAY = 1000; // Delay to ensure sensor is ready
+float accelX, accelY, accelZ;
 
 void initBNO055() {
   // Start the I2C bus
@@ -15,7 +15,7 @@ void initBNO055() {
 
   // Check if BNO055 sensor is connected
   if (!bno.begin()) {
-    Serial5.println("No BNO055 detected. Check your wiring or I2C address");
+    Serial7.println("No BNO055 detected. Check your wiring or I2C address");
   }
 
   // Delay to ensure sensor is ready
@@ -45,3 +45,5 @@ void bno055readAcceleration() {
   accelY = acceleration.y(); // to reflect that they now store
   accelZ = acceleration.z(); // acceleration data, not gravity.
 }
+
+  
