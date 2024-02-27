@@ -66,6 +66,7 @@ void loop() {
     bno055readAcceleration();
     bno055readRotationVector();
     deployPayload();
+    payloadRelease();
     deployAirbag();
     thrusterDeploy();
     readBMP390();
